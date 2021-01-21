@@ -1,6 +1,32 @@
 dayjs.locale("es");
+
+let captions = {
+    button: "seleccionar",
+    feedback: "seleccione los archivos",
+    feedback2: "Archivos fueron seleccionados",
+    removeConfirmation: "¿Estas seguro que quieres quitar este archivo?",
+    errors: {
+        filesLimit: "Solo es permitido seleccionar {{fi-limit}} archivos para subir.",
+        filesType: "Solo se permiten documentos de word o pdf.",
+        filesSize: "¡{{fi-name}} es demasiado grande! El tamaño maximo para los archivos es de {{fi-fileMaxSize}} MB.",
+        filesSizeAll: "¡El tamaño total de todos los archivos que intentas subir es muy grande! El espacio maximo de subida es de {{fi-maxSize}} MB.",
+        folderUpload: "No se permite subir carpetas."
+    }
+};
+
+let rulesMultiAll ={
+    fileMaxSize: 50,
+    maxSize:300,
+    extensions: ["pdf", "docx", "doc","zip","xls","xlsx"],
+    showThumbs: true,
+    addMore: true,
+    captions: captions    
+};
+
+
 $(document).ready(function () {
     console.log("hola");
+    // $('#documentos').filer(rulesMultiAll);
 });
 let tablaProspectos = $('#tablaProspectos').DataTable({
     "ajax": $('#tablaProspectos').data('url'),

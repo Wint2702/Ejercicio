@@ -21,6 +21,7 @@ class Prospecto extends Model
         'rfc',
         'fecha_aprobado',
         'fecha_rechazado',
+        'motivo_rechazo'
     ];
 
     protected $appends = [

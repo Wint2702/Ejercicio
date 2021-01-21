@@ -107,6 +107,12 @@
                             <label for="codigo_postal">Código postal <span class="text-danger">*</span></label>
                             <input type="number" name="codigo_postal" id="codigo_postal" class="form-control" maxlength="6" required>
                         </div>
+                        <hr class="col-10">
+                        <div class="col-12 mb-4">
+                            <label for="documentos">Subir documentos de prospecto. <span class="text-danger">*</span></label> <br>
+                            <small class="text-muted">Formatos admitidos: PDF, DOCX, DOC, ZIP, XLS y XLSX.</small>
+                            <input type="file" id="documentos" name="documentos[]" multiple required>
+                        </div>
                     </div>
                 </form>
             </div>
