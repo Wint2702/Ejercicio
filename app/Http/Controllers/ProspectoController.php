@@ -19,6 +19,16 @@ class ProspectoController extends Controller {
         return response()->json(['data' => $prospectos],200);
     }
 
+    public function listadoProspectosEvaluar(){
+        $prospectos = Prospecto::where('fecha_aprobado', '=', null)->orWhere('fecha_rechazado', '=', null)->get();
+        return response()->json(['data' => $prospectos],200);
+    }
+
+    public function verProspecto(Request $request){
+        $prospecto = Prospecto::findOrFail($request->idProspecto);
+        return response()->json(['data' => $prospectos],200);
+    }
+
     public function crearProspecto(Request $request) {
         $request->validate([
             'nombre' => 'required|string|max:255',
@@ -100,9 +110,31 @@ class ProspectoController extends Controller {
     }
 
     public function borrarProspecto(Request $request) {
-        $propuesta = Propuesta::findOrFail($request->idPropuesta);
-        $propuesta->delete();
-        return response()->json(['message' =>'La propuesta se borró correctamente.'],200);
+        $prospecto = Prospecto::findOrFail($request->idProspecto);
+        $prospecto->delete();
+        return response()->json(['message' =>'El prospecto se eliminó correctamente.'],200);
+    }
+
+    public function aprobarProspecto(Request $request){
+        $prospecto = Prospecto::findOrFail($request->idProspecto);
+
+        try{
+            $prospecto->update(['fecha_aprobado' => Carbon::now()]);
+            return response()->json(['message' => 'Se aprobó el prospecto correctamente.', 'prospecto' => $prospecto],200);
+        } catch (Exception $e){
+            return response()->json(['message' => 'Ha ocurrido un error al intentar aprobar el prospecto.'],500);
+        }
+    }
+
+    public function rechazarProspecto(Request $request){
+        $prospecto = Prospecto::findOrFail($request->idProspecto);
+
+        try{
+            $prospecto->update(['fecha_rechazado' => Carbon::now()]);
+            return response()->json(['message' => 'Se rechazó el prospecto correctamente.', 'prospecto' => $prospecto],200);
+        } catch (Exception $e){
+            return response()->json(['message' => 'Ha ocurrido un error al intentar rechazar el prospecto.'],500);
+        }
     }
 
 

@@ -1,0 +1,80 @@
+#notify-container {
+    z-index: 9999;
+    position: fixed;
+    width: auto;
+    top: 10px;
+    right: 0;
+}
+.notify {
+    position: relative;
+    /* margin: 0 -500px 15px; */
+    margin: 0 15px 15px;
+    border-radius: 4px;
+    background: #F5F5F5;
+    color: #fff;
+    font-weight: 400;
+    padding: 0.75rem;
+    padding-right: 1.9rem;
+    box-shadow:0px 3px 10px 0px  rgba(50, 50, 50, 0.35);
+    opacity: 0;
+    transition: all ease 0.25s;
+    display: block;
+    float: right;
+    clear: right;
+}
+.notify p{
+    margin: 0;
+    line-height: 1.6rem;
+    font-size: 1rem;
+}
+.notify .notify-link {
+    background-color: hsl(213, 77%, 64%);
+    border: 1px solid  hsl(213, 77%, 75%);
+    color:#fff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: all ease 100ms;
+}
+.notify .notify-link:hover {
+    text-decoration: none;
+    background-color: hsl(212, 85%, 50%);
+
+}
+.notify .notify-link:active {
+    text-decoration: none;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: hsl(212, 40%, 40%);
+
+}
+.close-notify{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 3px 10px;
+    font: inherit;
+    font-size: 1.1rem;
+    font-weight: bolder;
+    cursor: pointer;
+    outline: inherit;
+}
+.notify.info {
+    background-color: rgba(58, 172, 217, 0.95);
+    border: 1px solid hsl(197, 50%, 65%);
+}
+.notify.success {
+    background-color: rgba(137, 192, 83, 0.95);
+    border: 1px solid hsl(90, 50%, 65%);
+}
+.notify.warning {
+    background-color: rgba(254, 178, 85, 0.95);
+    border: 1px solid hsl(33, 50%, 65%);
+}
+.notify.danger {
+    background-color: rgba(243, 82, 67, 0.95);
+    border: 1px solid hsl(5, 50%, 65%);
+}

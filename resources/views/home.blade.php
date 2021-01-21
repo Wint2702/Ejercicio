@@ -10,7 +10,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bs-custom-file-input/1.3.4/bs-custom-file-input.min.js" integrity="sha512-91BoXI7UENvgjyH31ug0ga7o1Ov41tOzbMM3+RPqFVohn1UbVcjL/f5sl6YSOFfaJp+rF+/IEbOOEwtBONMz+w==" crossorigin="anonymous"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="/js/home/home.js"></script>
+<script src="js/home.js"></script>
 @endsection
 
 @section('css')
@@ -20,16 +20,16 @@
 @endsection
 
 @section('content')
-<div class="card shadow-sm mx-4" id="cardContactos">		
+<div class="card shadow-sm mx-4" id="cardProspectos">		
     <div class="card-header">
         <div class="btn-group mt-4">
-            <button type="button" class="btn btn-sm btn-success" id='createContacto'>
-                <i class="fas fa-user-plus"></i> nuevo prospecto
+            <button type="button" class="btn btn-sm btn-success" id='createProspecto'>
+                <i class="fas fa-user-plus"></i> Nuevo prospecto
             </button>
         </div>
-        <label for="filtroContactos" class="ml-4 float-right">
+        <label for="filtroProspectos" class="ml-4 float-right">
             Filtrar por:
-            <select name="filtroContactos" id="filtroContactos" class="form-control form-control-sm">
+            <select name="filtroProspectos" id="filtroProspectos" class="form-control form-control-sm">
                 <option value="">Todos los prospectos</option>
                 <option>Por evalular</option>
                 <option>Cliente</option>
@@ -38,13 +38,14 @@
         </label>
     </div>
     <div class="card-body ">
-        <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaContactos' data-url=''>
+        <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos' data-url='{{route('prospectos.listaCaptura')}}'>
             <thead class="text-light bg-primary">
                 <tr class="text-center">
                     <th style="width:5%;">#</th>
                     <th style="width:30%;">Nombre</th>
-                    <th style="width:20%;">Apellido paterno</th>
-                    <th style="width:20%;">apellido materno</th>
+                    <th style="width:20%;">Primer apellido</th>
+                    <th style="width:20%;">Segundo apellido</th>
+                    <th style="width:10%;">Fecha registro</th>
                     <th style="width:20%;">Estatus</th>
                 </tr>
             </thead>
@@ -59,139 +60,60 @@
 <div class="modal fade"  id="modalForms" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header alert-secondary">
+            <div class="modal-header alert-secondary py-1 pb-2">
                 <h5 class="modal-title" id="tituloModal"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">x</span>
                 </button>
             </div>
-            <div class="modal-body d-none" id="storeContacto">
-                <form id="formContacto">
+            <div class="modal-body d-none" id="storeProspecto">
+                <form id="formProspecto" method="POST" data-url="">
+                    {{ csrf_field() }}
                     <div class="form-row">
-                        <div class="col-12 mb-2">
+                        <div class="col-4 mb-2">
                             <label for="nombre">Nombre <span class="text-danger">*</span></label>
                             <input type="text" name="nombre" id="nombre" class="form-control" maxlength="255" required>
                         </div>
-                        <div class="col-12 mb-2">
-                            <label for="empresa">Empresa</label>
-                            <input type="text" name="empresa" id="empresa" class="form-control" maxlength="255">
+                        <div class="col-4 mb-2">
+                            <label for="primer_apellido">Primer apellido <span class="text-danger">*</span></label>
+                            <input type="text" name="primer_apellido" id="primer_apellido" class="form-control" maxlength="100" required>
                         </div>
-                        <div class="col-6 mb-2">
-                            <label for="puesto">Puesto</label>
-                            <input type="text" name="puesto" id="puesto" class="form-control" maxlength="50">
+                        <div class="col-4 mb-2">
+                            <label for="segunndo_apellido">Segundo apellido</label>
+                            <input type="text" name="segunndo_apellido" id="segunndo_apellido" class="form-control" maxlength="100">
                         </div>
-                        <div class="col-6 mb-2">
-                            <label for="email">Email <span class="text-danger">*</span></label>
-                            <input type="email" name="email" id="email" class="form-control" maxlength="255" required>
+                        <div class="col-4 mb-2">
+                            <label for="telefono">Teléfono <span class="text-danger">*</span></label>
+                            <input type="text" name="telefono" id="telefono" class="form-control" maxlength="20" required>
                         </div>
-                        <div class="col-12 mb-2">
-                            <label for="direccion">Dirección</label>
-                            <textarea class="form-control" name="direccion" id="direccion"></textarea>
+                        <div class="col-4 mb-2">
+                            <label for="rfc">RFC <span class="text-danger">*</span></label>
+                            <input type="text" name="rfc" id="rfc" class="form-control" minlength="12" maxlength="13" required>
                         </div>
-                        <div class="col-12 mb-2">
-                            <label>Teléfonos</label>
-                            <button type="button" class="btn btn-sm text-success btn-link" id='addPhone'>
-                                <i class="fas fa-plus-circle"></i> agregar
-                            </button>
-                            <button type="button" class="btn btn-sm btn-link text-muted" id="cancelAddPhone" style="display:none;">cancelar</button>
+                        <hr class="col-10">
+                        <div class="col-4 mb-2">
+                            <label for="calle">Calle <span class="text-danger">*</span></label>
+                            <input type="text" name="calle" id="calle" class="form-control" maxlength="100" required>
+                        </div>
+                        <div class="col-2 mb-2">
+                            <label for="numero">Número <span class="text-danger">*</span></label>
+                            <input type="text" name="numero" id="numero" class="form-control" maxlength="10" required>
+                        </div>
+                        <div class="col-4 mb-2">
+                            <label for="colonia">Colonia <span class="text-danger">*</span></label>
+                            <input type="text" name="colonia" id="colonia" class="form-control" maxlength="100" required>
+                        </div>
+                        <div class="col-2 mb-2">
+                            <label for="codigo_postal">Código postal <span class="text-danger">*</span></label>
+                            <input type="number" name="codigo_postal" id="codigo_postal" class="form-control" maxlength="6" required>
                         </div>
                     </div>
                 </form>
-                <form class="form-group" id="formAgregarTelefono" style="display: none">
-                    <div class="form-row">
-                        <div class="col-4 mb-2">
-                            {{-- <label for="idTelefono">Identificador</label> --}}
-                            <input type="text" name="identificador" id="identificador" class="form-control" maxlength="100" placeholder="identificador" required>
-                        </div>
-                        <div class="col-4 mb-2">
-                            {{-- <label for="idTelefono">Teléfono</label> --}}
-                            <input type="text" name="telefono" id="telefono" class="form-control" maxlength="50" placeholder="teléfono" required>
-                        </div>
-                        <div class="input-group-append mb-2">
-                            <input class="btn btn-sm btn-success" type="submit" value="agregar" id="submitTelefono">
-                        </div>
-                    </div>
-                </form>
-                <div class="table-responsive">
-                    <table class="table table-sm table-hover table-bordered mb-0" id="tablaTelefonos" style="display: none">
-                        <thead class="table-info">
-                            <tr class="text-center">
-                                <th style="width:45%">Identificador</th>
-                                <th style="width:45%">Teléfono</th>
-                                <th style="width:10%">Borrar</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
             </div>
-            <div class="modal-body d-none" id='storePropuesta'>
-                <form id='formPropuesta' data-url="" data-mode="">
-                    <fieldset id="fieldsetFormPropuesta">
-                        <div class="form-row">
-                            <div class="col-6 mb-2">
-                                <label>Cliente <span class="text-danger">*</span></label>
-                                <select name="cliente" id="cliente" class="form-control" style="width: 100%" required>
-                                    <option selected disabled>Seleccionar cliente...</option>
-                                    {{-- @foreach (App\Models\ClienteNew::all()->sortBy("nombre") as $cliente) --}}
-                                    {{-- <option value="{{$cliente->id}}">{{$cliente->nombre}}</option> --}}
-                                    {{-- @endforeach --}}
-                                </select>
-                            </div>
-                            <div class="col-6 mb-2">
-                                <label for="servicio">Tipo de servicio  <span class="text-danger">*</span></label>
-                                <select name="servicio" id="servicio" class="form-control" required>
-                                    <option selected disabled>Seleccionar tipo de servicio...</option>
-                                    {{-- @foreach (App\Models\ServicioProspectacion::all() as $servicio) --}}
-                                    {{-- <option value="{{$servicio->id}}">{{$servicio->nombre}}</option> --}}
-                                    {{-- @endforeach --}}
-                                </select>
-                            </div>
-                            <div class="col-6 mb-2">
-                                <label for="costo">Costo propuesto</label>
-                                <input type="text" class="form-control moneyInput" id="costo" name="costo">
-                            </div>
-                            <div class="col-6 mb-2">
-                                <label for="anticipo">Cantidad anticipo</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            <input type="checkbox" checked id="anticipoRequerido">
-                                        </div>
-                                    </div>
-                                    <input type="text" class="form-control moneyInput" id="anticipo" name="anticipo">
-                                </div>
-                            </div>
-                            <div class="col mb-2">
-                                <label for="alcance">Alcance del servicio</label>
-                                <textarea name="alcance" id="alcance" class="form-control"></textarea>
-                            </div>
-                            <div class="col mb-2" id="inputNoAnticipo" style="display: none">
-                                <label for="noAnticipo">Justificacion de no anticipo</label>
-                                <textarea name="noAnticipo" id="noAnticipo" class="form-control"></textarea>
-                            </div>
-                            <div class="col-12">
 
-                            </div>
-                            <div class="col-12 mb-2">
-                                <a href="#" id="verContrato" target="_blank"  style="display: none"><i class="fas fa-download mb-3 mt-3"></i> Descargar contrato</a> <br>
-                                <label for="contrato">Subir contrato firmado  </label> <br>
-                                <input type="file" name="contrato" id="contrato" class="form-control-file">
-
-                            </div>
-                            <div class="col-12 mb-2">
-                                <a href="#" id="verCartaPoder" target="_blank"  style="display: none"><i class="fas fa-download mb-3 mt-3"></i> Descargar carta poder</a> <br>
-                                <label for="cartaPoder">Subir carta poder</label>
-                                <input type="file" name="cartaPoder" id="cartaPoder" class="form-control-file">
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
             <div class="modal-footer d-block" id="modalNormal">
                 <input type="button" data-dismiss="modal" class="btn btn-sm btn-link text-muted float-left" value="Cancelar" id='cancelModal'>
-                <input class="btn btn-sm btn-success float-right" type="button" value="Crear propuesta" form='formContacto' id='createPropuesta' style="display: none">
-                <input class="btn btn-sm btn-info float-right d-none" type="submit" value="guardar" form='formContacto' id='saveContacto'>
+                <input class="btn btn-sm btn-success float-right d-none" type="submit" value="guardar" form='formProspecto' id='guardarProspecto'>
                 <input class="btn btn-sm btn-info float-right d-none" type="submit" value="guardar" form='formPropuesta' id="guardarPropuesta" disabled>
                 <button type="button" class="btn btn-sm btn-danger float-right" style="display: none" id="btnRechazarPropuesta"><i class="fas fa-ban"></i> rechazar propuesta</button>
                 <button type="button" class="btn btn-sm btn-success float-right" style="display: none" id="btnAceptarPropuesta"><i class="fas fa-check-circle"></i> aceptar propuesta</button>

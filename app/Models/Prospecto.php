@@ -24,7 +24,10 @@ class Prospecto extends Model
     ];
 
     protected $appends = [
-        'estatus'
+        'estatus',
+        'deleteUrl',
+        'updateUrl',
+        'getUrl'
     ];
 
     protected $dates = [
@@ -48,5 +51,18 @@ class Prospecto extends Model
         }
         return $estatus;
     }
+
+    public function getDeleteUrlAttribute() {
+        return route('prospectos.borrar',$this->id);
+    }
+
+    public function getUpdateUrlAttribute() {
+        return route('prospectos.editar',$this->id);
+    }
+
+    public function getGetUrlAttribute() {
+        return route('prospectos.ver',$this->id);
+    }
+
 
 }
