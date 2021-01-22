@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('js')
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
 <script src="https://unpkg.com/dayjs@1.9.4/locale/es.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/js/jquery.filer.min.js" integrity="sha256-TFa1VJG6Q3vcWkJc2X8WRekAve7r8iw0EeymrjveyIA=" crossorigin="anonymous"></script>
@@ -14,7 +11,6 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/css/jquery.filer.css" integrity="sha256-oadZPpy77zsuXe5kQtdf2P5z52iiJykWgkaxzovUIEo=" crossorigin="anonymous">
 @endsection
