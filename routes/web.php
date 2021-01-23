@@ -26,7 +26,8 @@ Route::get('prospectos/listado/evaluar', 'ProspectoController@listadoProspectosE
 
 Route::get('prospectos/listado/ver/{idProspecto}', 'ProspectoController@verProspecto')->name('prospectos.ver');
 
-Route::post('prospectos/listado/crear', 'ProspectoController@crearProspecto')->name('prospectos.crear');
+
+Route::post('/prospectos/listado/crear', 'ProspectoController@crearProspecto')->name('prospectos.crear');
 Route::post('prospectos/listado/editar/{idProspecto}', 'ProspectoController@editarProspecto')->name('prospectos.editar');
 Route::get('prospectos/listado/borrar/{idProspecto}', 'ProspectoController@borrarProspecto')->name('prospectos.borrar');
 

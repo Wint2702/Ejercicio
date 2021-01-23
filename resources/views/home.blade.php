@@ -2,10 +2,9 @@
 
 @section('js')
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/js/jquery.filer.min.js" integrity="sha256-TFa1VJG6Q3vcWkJc2X8WRekAve7r8iw0EeymrjveyIA=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.9.4/locale/es.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/js/jquery.filer.min.js" integrity="sha256-TFa1VJG6Q3vcWkJc2X8WRekAve7r8iw0EeymrjveyIA=" crossorigin="anonymous"></script>
-
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="js/home.js"></script>
 @endsection
@@ -36,18 +35,18 @@
     </div>
     <div class="card-body ">
         <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos' data-url='{{route('prospectos.listaCaptura')}}'>
-            <thead class="text-light bg-primary text-center">
+            <thead class="text-light bg-primary">
                 <tr class="text-center">
                     <th style="width:5%;">#</th>
                     <th style="width:30%;">Nombre</th>
                     <th style="width:20%;">Primer apellido</th>
                     <th style="width:20%;">Segundo apellido</th>
                     <th style="width:10%;">Fecha registro</th>
-                    <th style="width:20%;">Estatus</th>
+                    <th style="width:15%;">Estatus</th>
                 </tr>
             </thead>
             <tbody class="text-center">
-                {{-- @foreach (App\Models\Prospecto::all() as $prospecto)
+                @foreach (App\Models\Prospecto::all() as $prospecto)
                     <tr>
                         <td><button class="btn btn-link editProspecto" data-id="{{$prospecto->id}}">{{$prospecto->id}}</button></td>
                         <td>{{$prospecto->nombre}}</td>
@@ -57,7 +56,7 @@
                         <td>{{$prospecto->estatus}}</td>
                     </tr>
                 @endforeach
-            </tbody> --}}
+            </tbody>
         </table>
     </div>
 </div>
@@ -74,7 +73,8 @@
                 </button>
             </div>
             <div class="modal-body d-none" id="storeProspecto">
-                <form id="formProspecto" method="POST" data-url="">
+                <form id="formProspecto" action="{{ route('prospectos.crear' )}}" method="POST">
+                    {{ csrf_field() }}
                     <div class="form-row">
                         <div class="col-4 mb-2">
                             <label for="nombre">Nombre <span class="text-danger">*</span></label>
@@ -115,8 +115,8 @@
                         </div>
                         <hr class="col-10">
                         <div class="col-12 mb-4">
-                            <label for="documentos">Subir documentos de prospecto. <span class="text-danger">*</span></label> <br>
                             <small class="text-muted">Formatos admitidos: PDF, DOCX, DOC, ZIP, XLS y XLSX.</small>
+                            <label for="documentos">Subir documentos de prospecto. <span class="text-danger">*</span></label>
                             <input type="file" id="documentos" name="documentos[]" multiple required>
                         </div>
                     </div>
