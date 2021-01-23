@@ -1,17 +1,18 @@
 @extends('layouts.app')
 
 @section('js')
-<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-<script src="https://unpkg.com/dayjs@1.9.4/locale/es.js"></script>
+<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/dayjs@1.9.4/locale/es.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/js/jquery.filer.min.js" integrity="sha256-TFa1VJG6Q3vcWkJc2X8WRekAve7r8iw0EeymrjveyIA=" crossorigin="anonymous"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bs-custom-file-input/1.3.4/bs-custom-file-input.min.js" integrity="sha512-91BoXI7UENvgjyH31ug0ga7o1Ov41tOzbMM3+RPqFVohn1UbVcjL/f5sl6YSOFfaJp+rF+/IEbOOEwtBONMz+w==" crossorigin="anonymous"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="js/home.js"></script>
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/css/jquery.filer.css" integrity="sha256-oadZPpy77zsuXe5kQtdf2P5z52iiJykWgkaxzovUIEo=" crossorigin="anonymous">
 @endsection
 
@@ -35,7 +36,7 @@
     </div>
     <div class="card-body ">
         <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos' data-url='{{route('prospectos.listaCaptura')}}'>
-            <thead class="text-light bg-primary">
+            <thead class="text-light bg-primary text-center">
                 <tr class="text-center">
                     <th style="width:5%;">#</th>
                     <th style="width:30%;">Nombre</th>
@@ -46,7 +47,17 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-            </tbody>
+                {{-- @foreach (App\Models\Prospecto::all() as $prospecto)
+                    <tr>
+                        <td><button class="btn btn-link editProspecto" data-id="{{$prospecto->id}}">{{$prospecto->id}}</button></td>
+                        <td>{{$prospecto->nombre}}</td>
+                        <td>{{$prospecto->primer_apellido}}</td>
+                        <td>{{$prospecto->segundo_apellido or "no completado"}}</td>
+                        <td>{{$prospecto->created_at->formatLocalized('%d/%b/%Y')}}</td>
+                        <td>{{$prospecto->estatus}}</td>
+                    </tr>
+                @endforeach
+            </tbody> --}}
         </table>
     </div>
 </div>
@@ -64,7 +75,6 @@
             </div>
             <div class="modal-body d-none" id="storeProspecto">
                 <form id="formProspecto" method="POST" data-url="">
-                    {{ csrf_field() }}
                     <div class="form-row">
                         <div class="col-4 mb-2">
                             <label for="nombre">Nombre <span class="text-danger">*</span></label>
@@ -115,12 +125,11 @@
 
             <div class="modal-footer d-block" id="modalNormal">
                 <input type="button" data-dismiss="modal" class="btn btn-sm btn-link text-muted float-left" value="Cancelar" id='cancelModal'>
-                <input class="btn btn-sm btn-success float-right d-none" type="submit" value="guardar" form='formProspecto' id='guardarProspecto'>
+                {{-- <input class="btn btn-sm btn-success float-right d-none" type="submit" value="guardar" form='formProspecto' id='guardarProspecto'> --}}
+                <button class="btn btn-sm btn-success float-right d-none" type="submit" form='formProspecto' id='guardarProspecto'>Guardar</button>
                 <input class="btn btn-sm btn-info float-right d-none" type="submit" value="guardar" form='formPropuesta' id="guardarPropuesta" disabled>
                 <button type="button" class="btn btn-sm btn-danger float-right" style="display: none" id="btnRechazarPropuesta"><i class="fas fa-ban"></i> rechazar propuesta</button>
                 <button type="button" class="btn btn-sm btn-success float-right" style="display: none" id="btnAceptarPropuesta"><i class="fas fa-check-circle"></i> aceptar propuesta</button>
-                {{-- <button type="button" class="btn btn-sm btn-warning float-right"   id="btnGenerarPropuesta"><i class="fas fa-file-upload"></i> generar propuesta</button> --}}
-                {{-- <button type="button" class="btn btn-sm btn-primary float-right"  id="btnEnviarPropuesta"><i class="fas fa-paper-plane"></i> enviar propuesta</button> --}}
                 <button type="button" class="btn btn-sm btn-link text-danger float-left" id="btnBorrar" style="display: none"><i class="fas fa-trash-alt"></i></button>
             </div>
         </div>

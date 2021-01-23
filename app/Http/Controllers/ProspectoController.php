@@ -17,6 +17,11 @@ use RecursiveDirectoryIterator;
 
 class ProspectoController extends Controller {
 
+    public function index() {
+        $prospectos = Prospecto::all();
+        return View::make('prospectos.listado',['prospectos'=>$prospectos]);
+    }
+
     public function listadoProspectos(){
         $prospectos = Prospecto::all();
         return response()->json(['data' => $prospectos],200);
