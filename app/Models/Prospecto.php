@@ -28,6 +28,7 @@ class Prospecto extends Model
         'estatus',
         'deleteUrl',
         'updateUrl',
+        'documentosUrl',
         'getUrl'
     ];
 
@@ -63,6 +64,15 @@ class Prospecto extends Model
 
     public function getGetUrlAttribute() {
         return route('prospectos.ver',$this->id);
+    }
+
+    public function getDocumentosUrlAttribute() {
+        $path = storage_path('public/prospectos/'.$this->id.'/documentos');
+        
+        if( !file_exists($path) )
+        return null;
+        // ó
+        return route('prospectos.descargarDocs',$this->id);
     }
 
 

@@ -25,27 +25,27 @@ let rulesMultiAll ={
 
 
 $(document).ready(function () {
-    // $('#documentos').filer(rulesMultiAll);
-//     var tablaProspectos = $('#tablaProspectos').DataTable({
-//         "ajax": $('#tablaProspectos').data('url'),
-//         "order": [[ 5, 'desc' ]],
-//         columns: [
-//             {data: "id" },
-//             {data: "nombre" , render : function (data,type,row,meta) {
-//                 return `<button class="btn btn-link editProspecto" data-id="${row.id}">${data}</button>`;
-//             }},
-//             { data: 'primer_apellido'},
-//             { data: 'segundo_apellido'},
-//             { data: 'telefono.telefono',"defaultContent": "<span class='text-muted'>No completado</span>" },
-//             { data: 'email',"defaultContent": "<span class='text-muted'>No completado</span>" },
-//             { data:'created_at',
-//                 render: {
-//                     _: data=>{return dayjs(data).format('DD/MMM/YYYY');},
-//                     sort:data=>{return dayjs(data).format('YYYYMDHms');}
-//                 }},
-//             { data: 'estatus'}
-//         ]
-//     });
+// $('#documentos').filer(rulesMultiAll);
+    var tablaProspectos = $('#tablaProspectos').DataTable({
+        "ajax": $('#tablaProspectos').data('url'),
+        "order": [[ 5, 'desc' ]],
+        columns: [
+            {data: "id" },
+            {data: "nombre" , render : function (data,type,row,meta) {
+                return `<button class="btn btn-link editProspecto" data-id="${row.id}">${data}</button>`;
+            }},
+            { data: 'primer_apellido'},
+            { data: 'segundo_apellido'},
+            { data: 'telefono.telefono',"defaultContent": "<span class='text-muted'>No completado</span>" },
+            { data: 'email',"defaultContent": "<span class='text-muted'>No completado</span>" },
+            { data:'created_at',
+                render: {
+                    _: data=>{return dayjs(data).format('DD/MMM/YYYY');},
+                    sort:data=>{return dayjs(data).format('YYYYMDHms');}
+                }},
+            { data: 'estatus'}
+        ]
+    });
 });
 
 let prospecto = {

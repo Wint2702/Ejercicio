@@ -11,6 +11,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use Illuminate\Filesystem\Filesystem;
+use ZipArchive;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 
 class ProspectoController extends Controller {
 
@@ -135,6 +138,41 @@ class ProspectoController extends Controller {
         } catch (Exception $e){
             return response()->json(['message' => 'Ha ocurrido un error al intentar rechazar el prospecto.'],500);
         }
+    }
+
+    public function descargarDocs (Request $request) {
+        $prospecto = Prospecto::findOrFail($request->idProspecto);
+
+        $path = storage_path('app/public/prospectos/'.$prospecto->id.'/documentos');
+        $zipFileName = 'documentos_prospecto - '.$prospecto->id.'.zip';
+
+        if( !file_exists($path) ) die('No hay documentos subidos para este prospecto.');
+        $zip = new ZipArchive;
+        $zip->open($path.'/'.$zipFileName, ZipArchive::CREATE | ZipArchive::OVERWRITE);
+        $files = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($path),
+            RecursiveIteratorIterator::LEAVES_ONLY
+        );
+
+        foreach ($files as $name => $file)
+        {
+            if (!$file->isDir())
+            {
+                $filePath = $file->getRealPath();
+                $relativePath = substr($filePath, strlen($path) + 1);
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+        $zip->close();
+
+        $headers =['Content-Type' => 'application/octet-stream'];
+        if(file_exists($path.'/'.$zipFileName)){
+            return response()->download($path.'/'.$zipFileName,$zipFileName,$headers)->deleteFileAfterSend(true);
+        } else {
+            return null;
+        }
+
+
     }
 
 

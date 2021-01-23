@@ -32,3 +32,6 @@ Route::get('prospectos/listado/borrar/{idProspecto}', 'ProspectoController@borra
 Route::get('prospectos/listado/aprobar/{idProspecto}', 'ProspectoController@aprobarProspecto')->name('prospectos.aprobar');
 Route::get('prospectos/listado/rechazar/{idProspecto}', 'ProspectoController@rechazarProspecto')->name('prospectos.rechazar');
 
+Route::get('prospectos/listado/descargarDocs/{idProspecto}', 'ProspectoController@descargarDocs')->name('prospectos.descargarDocs');
+
+
