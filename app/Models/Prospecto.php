@@ -1,11 +1,12 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Prospecto extends Model
-{
+class Prospecto extends Model {
     use SoftDeletes;
 
     protected $table = "prospectos";
@@ -74,6 +75,5 @@ class Prospecto extends Model
         // ó
         return route('prospectos.descargarDocs',$this->id);
     }
-
 
 }

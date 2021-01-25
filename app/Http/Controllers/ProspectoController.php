@@ -3,8 +3,12 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use View;
+use Auth;
+use DB;
+use DateTime;
+use Validator;
+use Response;
 use Carbon\Carbon;
 use App\Models\Prospecto;
 use Illuminate\Http\Request;
@@ -16,6 +20,11 @@ use RecursiveIteratorIterator;
 use RecursiveDirectoryIterator;
 
 class ProspectoController extends Controller {
+
+    public function index() {
+        $prospectos = Prospecto::all();
+        return View::make('prospectos.listado',['prospectos'=>$prospectos]);
+    }
 
     public function listadoProspectos(){
         $prospectos = Prospecto::all();
@@ -29,7 +38,7 @@ class ProspectoController extends Controller {
 
     public function verProspecto(Request $request){
         $prospecto = Prospecto::findOrFail($request->idProspecto);
-        return response()->json(['data' => $prospectos],200);
+        return response()->json(['data' => $prospecto],200);
     }
 
     public function crearProspecto(Request $request) {
@@ -59,11 +68,11 @@ class ProspectoController extends Controller {
         try{
             $prospecto = Prospecto::create($data);
 
-            if($request->has('documentos') ) {
-                foreach ($request->documentos as $doc) {
-                    $doc->storeAs( 'public/prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
-                }
-            }
+            // if($request->has('documentos') ) {
+            //     foreach ($request->documentos as $doc) {
+            //         $doc->storeAs( 'public/prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
+            //     }
+            // }
 
             return response()->json(['message' => 'Se creó exitosamente el nuevo prospecto.', 'prospecto' => $prospecto],200);
         } catch (Exception $e){
