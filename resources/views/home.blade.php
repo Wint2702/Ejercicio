@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
+@section('title','Registro de prospectos')
+
 @section('js')
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/js/jquery.filer.min.js" integrity="sha256-TFa1VJG6Q3vcWkJc2X8WRekAve7r8iw0EeymrjveyIA=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.9.4/locale/es.js" crossorigin="anonymous"></script>
@@ -11,7 +13,7 @@
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/css/jquery.filer.css" integrity="sha256-oadZPpy77zsuXe5kQtdf2P5z52iiJykWgkaxzovUIEo=" crossorigin="anonymous">
 @endsection
 
@@ -111,7 +113,7 @@
                         </div>
                         <div class="col-2 mb-2">
                             <label for="codigo_postal">Código postal <span class="text-danger">*</span></label>
-                            <input type="number" name="codigo_postal" id="codigo_postal" class="form-control" maxlength="6" required>
+                            <input type="number" name="codigo_postal" id="codigo_postal" class="form-control"  minlength="5" maxlength="5" required>
                         </div>
                         <hr class="col-10">
                         <div class="col-12 mb-4">
