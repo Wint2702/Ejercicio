@@ -39,7 +39,7 @@
                 {{-- <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li> --}}
 
                 @else
-                <li class="nav-item {{ (request()->is('prospectos/listado/captura')) ? 'active' : '' }}">
+                <li class="nav-item {{ (request()->is('prospectos/listado/captura') || request()->is('/home')) ? 'active' : '' }}">
                   <a class="nav-link" href="{{route('prospectos.listaCaptura')}}" style="font-size: 1.4em" >Captura
                   </a>
                 </li>
