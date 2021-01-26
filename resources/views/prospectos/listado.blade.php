@@ -95,7 +95,7 @@
                             <li><strong>Código postal:</strong> <span id="codigo_postal"></span></li>
                             <li class="d-none"><strong>Dirección:</strong> <span id="direccionCliente"></span></li>
                         </ul>
-                        <a href="#" id="descargaDocumentos" target="_blank" class="mt-2"><i class="fas fa-download" style="display: none"></i> Descargar documentos prospecto</a>
+                        <a href="#" id="descargaDocumentos" target="_blank" class="mt-2" style="display: none"><i class="fas fa-download"></i> Descargar documentos prospecto</a>
 
                     </div>
                 </div>
