@@ -110,24 +110,24 @@ function saveData(formData ,url, target) {
 }
 
 let tablaProspectos = $('#tablaProspectos').DataTable(
-    // {
-    // serverSide: true,
-    // "ajax": {
-    //     url:$('#tablaProspectos').data('url'),
-    //     type: 'GET',
-    // },
-    // "order": [[ 0, 'desc' ]],
-    // columns: [
-    //     {data: "id" },
-    //     {data: "nombre" , render : function (data,type,row,meta) {
-    //         return `<button class="btn btn-link editProspecto" data-id="${row.id}">${data}</button>`;
-    //     }},
-    //     { data: 'primer_apellido'},
-    //     { data: 'segundo_apellido',"defaultContent": "<span class='text-muted'>No completado</span>" },
-    //     { data:'created_at'},
-    //     { data: 'estatus'}
-    // ]
-    // }
+    {
+        serverSide: true,
+        "ajax": {
+            url:$('#tablaProspectos').data('url'),
+            type: 'GET',
+        },
+        "order": [[ 0, 'desc' ]],
+        columns: [
+            {data: "id" },
+            {data: "nombre" , render : function (data,type,row,meta) {
+                return `<button class="btn btn-link editProspecto" data-id="${row.id}">${data}</button>`;
+            }},
+            { data: 'primer_apellido'},
+            { data: 'segundo_apellido',"defaultContent": "<span class='text-muted'>No completado</span>" },
+            { data:'created_at'},
+            { data: 'estatus'}
+        ]
+    }
 );
 // $('#documentos').filer(rulesMultiAll);
 $(document).ready(function () {

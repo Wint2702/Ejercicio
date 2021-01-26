@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
+@section('title','Registro de prospectos')
+
 @section('js')
-<script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+<script src="js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/js/jquery.filer.min.js" integrity="sha256-TFa1VJG6Q3vcWkJc2X8WRekAve7r8iw0EeymrjveyIA=" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.9.4/locale/es.js" crossorigin="anonymous"></script>
@@ -111,7 +113,7 @@
                         </div>
                         <div class="col-2 mb-2">
                             <label for="codigo_postal">Código postal <span class="text-danger">*</span></label>
-                            <input type="number" name="codigo_postal" id="codigo_postal" class="form-control" maxlength="6" required>
+                            <input type="number" name="codigo_postal" id="codigo_postal" class="form-control"  minlength="5" maxlength="5" required>
                         </div>
                         <hr class="col-10">
                         <div class="col-12 mb-4">
@@ -127,9 +129,8 @@
                 <input type="button" data-dismiss="modal" class="btn btn-sm btn-link text-muted float-left" value="Cancelar" id='cancelModal'>
                 {{-- <input class="btn btn-sm btn-success float-right d-none" type="submit" value="guardar" form='formProspecto' id='guardarProspecto'> --}}
                 <button class="btn btn-sm btn-success float-right d-none" type="submit" form='formProspecto' id='guardarProspecto'>Guardar</button>
-                <input class="btn btn-sm btn-info float-right d-none" type="submit" value="guardar" form='formPropuesta' id="guardarPropuesta" disabled>
-                <button type="button" class="btn btn-sm btn-danger float-right" style="display: none" id="btnRechazarPropuesta"><i class="fas fa-ban"></i> rechazar propuesta</button>
-                <button type="button" class="btn btn-sm btn-success float-right" style="display: none" id="btnAceptarPropuesta"><i class="fas fa-check-circle"></i> aceptar propuesta</button>
+                <button type="button" class="btn btn-sm btn-danger float-right" style="display: none" id="btnRechazarProspecto"><i class="fas fa-ban"></i> rechazar prospecto</button>
+                <button type="button" class="btn btn-sm btn-success float-right" style="display: none" id="btnAceptarProspecto"><i class="fas fa-check-circle"></i> aceptar prospecto</button>
                 <button type="button" class="btn btn-sm btn-link text-danger float-left" id="btnBorrar" style="display: none"><i class="fas fa-trash-alt"></i></button>
             </div>
         </div>
