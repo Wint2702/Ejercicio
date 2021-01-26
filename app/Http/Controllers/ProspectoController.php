@@ -22,18 +22,18 @@ use RecursiveDirectoryIterator;
 class ProspectoController extends Controller {
 
     public function index() {
-        $prospectos = Prospecto::all();
+        $prospectos = Prospecto::orderBy('id', 'DESC')->get();
         return View::make('prospectos.listado',['prospectos'=>$prospectos]);
     }
 
     public function listadoProspectos(){
-        $prospectos = Prospecto::orderBy('id', 'ASC')->get();
-        return response()->json(['data' => $prospectos],200);
+        $prospectos = Prospecto::orderBy('id', 'DESC')->get();
+        return View::make('prospectos.listado',['prospectos'=>$prospectos]);
     }
 
     public function listadoProspectosEvaluar(){
-        $prospectos = Prospecto::where('fecha_aprobado', '=', null)->orWhere('fecha_rechazado', '=', null)->get();
-        return response()->json(['data' => $prospectos],200);
+        $prospectos = Prospecto::where('fecha_aprobado', '=', null)->where('fecha_rechazado', '=', null)->orderBy('id', 'DESC')->get();
+        return View::make('prospectos.evaluacion',['prospectos'=>$prospectos]);
     }
 
     public function verProspecto(Request $request){

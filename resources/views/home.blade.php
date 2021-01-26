@@ -3,18 +3,18 @@
 @section('title','Registro de prospectos')
 
 @section('js')
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="js/jquery.filer.min.js" crossorigin="anonymous"></script>
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/jquery.filer.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.9.4/locale/es.js" crossorigin="anonymous"></script>
-<script src="js/jquery.form.js"></script>
-<script src="js/home.js"></script>
+<script src="/js/jquery.form.js"></script>
+<script src="/js/home.js"></script>
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
-    <link rel="stylesheet" href="css/jquery.filer.css" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/jquery.filer.css" crossorigin="anonymous">
 @endsection
 
 @section('content')
@@ -35,7 +35,7 @@
             </select>
         </label>
     </div>
-    <div class="card-body ">
+    <div class="card-body" >
         <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos' data-url='{{route('prospectos.listaCaptura')}}'>
             <thead class="text-light bg-primary">
                 <tr class="text-center">
@@ -47,8 +47,8 @@
                     <th style="width:15%;">Estatus</th>
                 </tr>
             </thead>
-            <tbody class="text-center">
-                @foreach (App\Models\Prospecto::all() as $prospecto)
+            <tbody class="text-center" id="tbodyProspectos">
+                @foreach ($prospectos as $prospecto)
                     <tr>
                         <td><button class="btn btn-link editProspecto" data-id="{{$prospecto->id}}">{{$prospecto->id}}</button></td>
                         <td>{{$prospecto->nombre}}</td>

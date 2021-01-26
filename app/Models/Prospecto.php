@@ -30,6 +30,8 @@ class Prospecto extends Model {
         'deleteUrl',
         'updateUrl',
         'documentosUrl',
+        'aprobarUrl',
+        'rechazarUrl',
         'getUrl'
     ];
 
@@ -65,6 +67,14 @@ class Prospecto extends Model {
 
     public function getGetUrlAttribute() {
         return route('prospectos.ver',$this->id);
+    }
+
+    public function getAprobarUrlAttribute() {
+        return route('prospectos.aprobar',$this->id);
+    }
+
+    public function getRechazarUrlAttribute() {
+        return route('prospectos.rechazar',$this->id);
     }
 
     public function getDocumentosUrlAttribute() {

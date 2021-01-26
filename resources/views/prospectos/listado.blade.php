@@ -3,18 +3,18 @@
 @section('title','Registro de prospectos')
 
 @section('js')
-<script src="js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/js/jquery.filer.min.js" integrity="sha256-TFa1VJG6Q3vcWkJc2X8WRekAve7r8iw0EeymrjveyIA=" crossorigin="anonymous"></script>
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/jquery.filer.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.9.4/locale/es.js" crossorigin="anonymous"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="js/home.js"></script>
+<script src="/js/jquery.form.js"></script>
+<script src="/js/home.js"></script>
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/css/jquery.filer.css" integrity="sha256-oadZPpy77zsuXe5kQtdf2P5z52iiJykWgkaxzovUIEo=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/jquery.filer.css" crossorigin="anonymous">
 @endsection
 
 @section('content')
@@ -29,13 +29,13 @@
             Filtrar por:
             <select name="filtroProspectos" id="filtroProspectos" class="form-control form-control-sm">
                 <option value="">Todos los prospectos</option>
-                <option>Por evalular</option>
-                <option>Cliente</option>
-                <option>Rechazado</option>
+                <option value="Enviado">Enviados</option>
+                <option value="Autorizado">Autorizados</option>
+                <option value="Rechazado">Rechazados</option>
             </select>
         </label>
     </div>
-    <div class="card-body ">
+    <div class="card-body" >
         <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos' data-url='{{route('prospectos.listaCaptura')}}'>
             <thead class="text-light bg-primary">
                 <tr class="text-center">
@@ -47,14 +47,14 @@
                     <th style="width:15%;">Estatus</th>
                 </tr>
             </thead>
-            <tbody class="text-center">
-                @foreach (App\Models\Prospecto::all() as $prospecto)
+            <tbody class="text-center" id="tbodyProspectos">
+                @foreach ($prospectos as $prospecto)
                     <tr>
                         <td><button class="btn btn-link editProspecto" data-id="{{$prospecto->id}}">{{$prospecto->id}}</button></td>
                         <td>{{$prospecto->nombre}}</td>
                         <td>{{$prospecto->primer_apellido}}</td>
                         <td>{{$prospecto->segundo_apellido or "no completado"}}</td>
-                        <td>{{$prospecto->created_at->formatLocalized('%d/%b/%Y')}}</td>
+                        <td>{{$prospecto->created_at->formatLocalized('%d/%m/%Y')}}</td>
                         <td>{{$prospecto->estatus}}</td>
                     </tr>
                 @endforeach
@@ -75,7 +75,7 @@
                 </button>
             </div>
             <div class="modal-body d-none" id="storeProspecto">
-                <form id="formProspecto" action="{{ route('prospectos.crear' )}}" method="POST">
+                <form id="formProspecto" action="" method="POST">
                     {{ csrf_field() }}
                     <div class="form-row">
                         <div class="col-4 mb-2">
@@ -117,9 +117,10 @@
                         </div>
                         <hr class="col-10">
                         <div class="col-12 mb-4">
+                            <label for="documentos">Subir documentos de prospecto. <span class="text-danger">*</span></label> <br>
                             <small class="text-muted">Formatos admitidos: PDF, DOCX, DOC, ZIP, XLS y XLSX.</small>
-                            <label for="documentos">Subir documentos de prospecto. <span class="text-danger">*</span></label>
-                            <input type="file" id="documentos" name="documentos[]" multiple required>
+                            <input type="file" id="documentos" name="documentos[]" multiple>
+                            <a href="#" id="descargaDocumentos" target="_blank" class="mt-2"  style="display: none"><i class="fas fa-download"></i> Descargar documentos prospecto</a>
                         </div>
                     </div>
                 </form>
@@ -127,8 +128,8 @@
 
             <div class="modal-footer d-block" id="modalNormal">
                 <input type="button" data-dismiss="modal" class="btn btn-sm btn-link text-muted float-left" value="Cancelar" id='cancelModal'>
-                {{-- <input class="btn btn-sm btn-success float-right d-none" type="submit" value="guardar" form='formProspecto' id='guardarProspecto'> --}}
-                <button class="btn btn-sm btn-success float-right d-none" type="submit" form='formProspecto' id='guardarProspecto'>Guardar</button>
+                <input class="btn btn-sm btn-success float-right d-none" type="submit" value="guardar" form='formProspecto' id='guardarProspecto'>
+                {{-- <button class="btn btn-sm btn-success float-right d-none" type="submit" form='formProspecto' id='guardarProspecto'>Guardar</button> --}}
                 <button type="button" class="btn btn-sm btn-danger float-right" style="display: none" id="btnRechazarProspecto"><i class="fas fa-ban"></i> rechazar prospecto</button>
                 <button type="button" class="btn btn-sm btn-success float-right" style="display: none" id="btnAceptarProspecto"><i class="fas fa-check-circle"></i> aceptar prospecto</button>
                 <button type="button" class="btn btn-sm btn-link text-danger float-left" id="btnBorrar" style="display: none"><i class="fas fa-trash-alt"></i></button>

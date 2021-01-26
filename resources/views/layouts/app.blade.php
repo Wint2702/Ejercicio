@@ -40,12 +40,25 @@
 
                 @else
                 <li class="nav-item active">
-                  <a class="nav-link" href="#" style="font-size: 1.4em" >Registro de prospectos
+                  <a class="nav-link" href="{{route('prospectos.listaCaptura')}}" style="font-size: 1.4em" >Captura
+                    @if (Route::has('captura'))
                     <span class="sr-only">(current)</span>
+                    @endif
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#" style="font-size: 1.4em">Evaluar prospectos</a>
+                  <a class="nav-link" href="{{route('prospectos.listaEvaluar')}}" style="font-size: 1.4em">Listado
+                    @if (Route::has('evaluar'))
+                    <span class="sr-only">(current)</span>
+                    @endif
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{route('prospectos.listaEvaluar')}}" style="font-size: 1.4em">Evaluación
+                    @if (Route::has('evaluar'))
+                    <span class="sr-only">(current)</span>
+                    @endif
+                  </a>
                 </li>
                 <li class="nav-item dropdown d-block float-right">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" style="font-size: 1.4em">{{ Auth::user()->name }}</a>
@@ -71,12 +84,12 @@
         {{-- jQuery --}}
         {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script> --}}
         {{-- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" crossorigin="anonymous"></script> --}}
-        <script src="js\jquery-3.5.1.js" crossorigin="anonymous"></script>
-        <script src="js\bootstrap.min.js" crossorigin="anonymous"></script>
+        <script src="\js\jquery-3.5.1.js" crossorigin="anonymous"></script>
+        <script src="\js\bootstrap.min.js" crossorigin="anonymous"></script>
         @yield('js')
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('/js/app.js') }}"></script>
 </body>
 </html>
