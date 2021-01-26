@@ -74,17 +74,11 @@ class ProspectoController extends Controller {
         try{
             $prospecto = Prospecto::create($data);
 
-            // if($request->has('documentos') ) {
-            //     foreach ($request->documentos as $doc) {
-            //         $doc->storeAs( 'public/prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
-            //     }
-            // }
-
             $files = $request->file('documentos');
             if($request->hasFile('documentos'))
             {
                 foreach ($files as $file) {
-                    $file->storeAs( 'public/prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
+                    $file->storeAs( 'prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
                 }
             }
 
@@ -123,16 +117,11 @@ class ProspectoController extends Controller {
         try{
             $prospecto->update($data);
 
-            // if($request->has('documentos') ) {
-            //     foreach ($request->documentos as $doc) {
-            //         $doc->storeAs( 'public/prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
-            //     }
-            // }
             $files = $request->file('documentos');
             if($request->hasFile('documentos'))
             {
                 foreach ($files as $file) {
-                    $file->store( 'prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
+                    $file->storeAs( 'prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
                 }
             }
 
