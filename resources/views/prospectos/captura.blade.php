@@ -48,7 +48,7 @@
                 </tr>
             </thead>
             <tbody class="text-center" id="tbodyProspectos">
-                @foreach (App\Models\Prospecto::orderBy('id', 'DESC')->get() as $prospecto)
+                @foreach ($prospectos as $prospecto)
                     <tr>
                         <td><button class="btn btn-link editProspecto" data-id="{{$prospecto->id}}">{{$prospecto->id}}</button></td>
                         <td>{{$prospecto->nombre}}</td>

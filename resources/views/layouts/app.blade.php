@@ -47,7 +47,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('prospectos.listaEvaluar')}}" style="font-size: 1.4em">Listado
+                  <a class="nav-link" href="{{route('prospectos.listado')}}" style="font-size: 1.4em">Listado
                     @if (Route::has('evaluar'))
                     <span class="sr-only">(current)</span>
                     @endif

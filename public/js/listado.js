@@ -5,12 +5,10 @@ $(document).ready(function () {
         $('#nombre, #folio, #telefono, #rfc, #calle, #numero, #colonia, #codigo_postal').text('');
         $('#descargaDocumentos').hide();
         $('#tituloModal').text("");
-        $('#btnAprobarProspecto').data('url', "");
-        $('#btnRechazarProspecto').data('url', "");
     });
 
 
-    $('.evaluarProspecto').on('click', function (e) {
+    $('.verProspecto').on('click', function (e) {
         e.preventDefault();
 
         $.ajax({
@@ -33,45 +31,13 @@ $(document).ready(function () {
                     $('#descargaDocumentos').show();
                     $('#descargaDocumentos').attr('href', prospecto.data.documentosUrl);
                 }
-
-                $('#btnAprobarProspecto').data('url', prospecto.data.aprobarUrl);
-                $('#btnRechazarProspecto').data('url', prospecto.data.rechazarUrl);
-
             }
         });
         $('#modalForms').modal('show');
-        $('#tituloModal').text("Evaluar prospecto");
+        $('#tituloModal').text("Ver prospecto");
 
     });
 
-
-    $('#btnAprobarProspecto').on('click', function (e) {
-        if(confirm("¿Está seguro de que desea aprobar este prospecto?")){
-            $.ajax({
-                type: "GET",
-                url: $(this).data('url'),
-                dataType: "json",
-                success: function (data) {
-                    $('#modalForms').modal('hide');
-                    location.reload();
-                }
-            });
-        }
-    });
-
-    $('#btnRechazarProspecto').on('click', function (e) {
-        if(confirm("¿Está seguro de que desea rechazar este prospecto?")){
-            $.ajax({
-                type: "GET",
-                url: $(this).data('url'),
-                dataType: "json",
-                success: function (data) {
-                    $('#modalForms').modal('hide');
-                    location.reload();
-                }
-            });
-        }
-    });
     
 });
 

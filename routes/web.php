@@ -19,10 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::get('prospectos/listado', function() {return View::make('prospectos.listado');})->name('prospectos.inicio');
 Route::get('prospectos/listado',  'ProspectoController@index')->name('prospectos.inicio');
-Route::get('prospectos/listado/captura', 'ProspectoController@listadoProspectos')->name('prospectos.listaCaptura');
-Route::get('prospectos/listado/evaluar', 'ProspectoController@listadoProspectosEvaluar')->name('prospectos.listaEvaluar');
+Route::get('prospectos/listado/captura', 'ProspectoController@capturaProspectos')->name('prospectos.listaCaptura');
+Route::get('prospectos/listado/ver', 'ProspectoController@listadoProspectos')->name('prospectos.listado');
+Route::get('prospectos/listado/evaluar', 'ProspectoController@evaluacionProspectos')->name('prospectos.listaEvaluar');
 
 Route::get('prospectos/listado/ver/{idProspecto}', 'ProspectoController@verProspecto')->name('prospectos.ver');
 

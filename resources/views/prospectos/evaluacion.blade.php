@@ -20,7 +20,7 @@
 @section('content')
 <div class="card shadow-sm mx-4" id="cardProspectos">		
     <div class="card-body" >
-        <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos' data-url='{{route('prospectos.listaCaptura')}}'>
+        <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos'>
             <thead class="text-light bg-primary">
                 <tr class="text-center">
                     <th style="width:5%;">#</th>
@@ -75,8 +75,7 @@
                             <li><strong>Código postal:</strong> <span id="codigo_postal"></span></li>
                             <li class="d-none"><strong>Dirección:</strong> <span id="direccionCliente"></span></li>
                         </ul>
-                        <hr>
-                        <a href="#" id="descargaDocumentos" target="_blank" class="mt-2"><i class="fas fa-download"></i> Descargar documentos prospecto</a>
+                        <a href="#" id="descargaDocumentos" target="_blank" class="mt-2"><i class="fas fa-download" style="display: none"></i> Descargar documentos prospecto</a>
 
                     </div>
                 </div>

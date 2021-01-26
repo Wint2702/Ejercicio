@@ -23,7 +23,12 @@ class ProspectoController extends Controller {
 
     public function index() {
         $prospectos = Prospecto::orderBy('id', 'DESC')->get();
-        return View::make('prospectos.listado',['prospectos'=>$prospectos]);
+        return View::make('prospectos.captura',['prospectos'=>$prospectos]);
+    }
+
+    public function capturaProspectos(){
+        $prospectos = Prospecto::orderBy('id', 'DESC')->get();
+        return View::make('prospectos.captura',['prospectos'=>$prospectos]);
     }
 
     public function listadoProspectos(){
@@ -31,7 +36,7 @@ class ProspectoController extends Controller {
         return View::make('prospectos.listado',['prospectos'=>$prospectos]);
     }
 
-    public function listadoProspectosEvaluar(){
+    public function evaluacionProspectos(){
         $prospectos = Prospecto::where('fecha_aprobado', '=', null)->where('fecha_rechazado', '=', null)->orderBy('id', 'DESC')->get();
         return View::make('prospectos.evaluacion',['prospectos'=>$prospectos]);
     }
