@@ -80,6 +80,14 @@ class ProspectoController extends Controller {
             //     }
             // }
 
+            $files = $request->file('documentos');
+            if($request->hasFile('documentos'))
+            {
+                foreach ($files as $file) {
+                    $file->storeAs( 'public/prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
+                }
+            }
+
             return back()->with(['message' => 'Se creó exitosamente el nuevo prospecto.', 'prospecto' => $prospecto],200);
         } catch (Exception $e){
             return back()->with(['message' => 'Ha ocurrido un error al intentar crear el prospecto.'],500);
@@ -120,6 +128,13 @@ class ProspectoController extends Controller {
             //         $doc->storeAs( 'public/prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
             //     }
             // }
+            $files = $request->file('documentos');
+            if($request->hasFile('documentos'))
+            {
+                foreach ($files as $file) {
+                    $file->store( 'prospectos/'.$prospecto->id.'/documentos', microtime(true).'-'.$doc->getClientOriginalName() );
+                }
+            }
 
             return back()->with(['message' => 'Se actualizó la información del prospecto.', 'prospecto' => $prospecto],200);
         } catch (Exception $e){

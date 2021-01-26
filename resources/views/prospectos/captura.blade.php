@@ -36,7 +36,7 @@
         </label>
     </div>
     <div class="card-body" >
-        <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos' data-url='{{route('prospectos.listaCaptura')}}'>
+        <table class="table filTable table-sm table-striped table-bordered w-100" id='tablaProspectos'>
             <thead class="text-light bg-primary">
                 <tr class="text-center">
                     <th style="width:5%;">#</th>
@@ -95,8 +95,8 @@
                             <input type="text" name="primer_apellido" id="primer_apellido" class="form-control" maxlength="100" required>
                         </div>
                         <div class="col-4 mb-2">
-                            <label for="segunndo_apellido">Segundo apellido</label>
-                            <input type="text" name="segunndo_apellido" id="segunndo_apellido" class="form-control" maxlength="100">
+                            <label for="segundo_apellido">Segundo apellido</label>
+                            <input type="text" name="segundo_apellido" id="segundo_apellido" class="form-control" maxlength="100">
                         </div>
                         <div class="col-4 mb-2">
                             <label for="telefono">Teléfono <span class="text-danger">*</span></label>
