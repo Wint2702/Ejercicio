@@ -38,6 +38,19 @@ $(document).ready(function () {
 
     });
 
+
+    $('#filtroProspectos').on('change', function (e) {
+        if ($(e.currentTarget).val() == '*') {
+            $("#tbodyProspectos tr").css('display', '');
+        } else {
+            $("#tbodyProspectos tr").filter(function () {
+                var value = $(e.currentTarget).val();
+                $(this).toggle($(this).text().indexOf(value) > -1)
+            });
+        }
+    });
+
+
     
 });
 

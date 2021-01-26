@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Prospecto;
+
 
 class HomeController extends Controller
 {
@@ -23,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $prospectos = Prospecto::orderBy('id', 'DESC')->get();
+        return View::make('prospectos.captura',['prospectos'=>$prospectos]);
     }
 }

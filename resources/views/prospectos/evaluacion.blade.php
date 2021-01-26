@@ -31,15 +31,24 @@
                     <th style="width:15%;">Estatus</th>
                 </tr>
             </thead>
-            <tbody class="text-center" id="tbodyProspectos">
+            <tbody class="text-center font-weight-bold" id="tbodyProspectos">
                 @foreach ($prospectos as $prospecto)
                     <tr>
-                        <td><button class="btn btn-link evaluarProspecto" data-id="{{$prospecto->id}}">{{$prospecto->id}}</button></td>
-                        <td>{{$prospecto->nombre}}</td>
+                        <td>{{$prospecto->id}}</td>
+                        <td><button class="btn btn-link evaluarProspecto" style="font-size: 1.2em" data-id="{{$prospecto->id}}">{{$prospecto->nombre}}</button></td>
                         <td>{{$prospecto->primer_apellido}}</td>
                         <td>{{$prospecto->segundo_apellido or "no completado"}}</td>
                         <td>{{$prospecto->created_at->formatLocalized('%d/%m/%Y')}}</td>
-                        <td>{{$prospecto->estatus}}</td>
+                        <td
+                        @if ($prospecto->estatus == "Autorizado")
+                            style="color:green;"
+                        @elseif ($prospecto->estatus == "Rechazado")
+                            style="color:red;"
+                        @elseif ($prospecto->estatus == "Enviado")
+                            style="color:blue;"
+                        @endif
+
+                        >{{$prospecto->estatus}}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -52,9 +61,9 @@
 <div class="modal fade"  id="modalForms" tabindex="-1">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
-            <div class="modal-header alert-secondary py-1 pb-2">
-                <h5 class="modal-title" id="tituloModal"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <div class="modal-header alert-secondary pb-2">
+                <h5 class="modal-title font-weight-bold" id="tituloModal"></h5>
+                <button type="button" class="close  py-1" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">x</span>
                 </button>
             </div>

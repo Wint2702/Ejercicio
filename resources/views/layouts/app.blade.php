@@ -32,32 +32,23 @@
             </button>
           
             <div class="collapse navbar-collapse" id="navbarColor01">
-              <ul class="navbar-nav mr-auto">
+              <ul class="navbar-nav mr-auto navbar-right">
                 @guest
                 <li class="nav-item"><a class="nav-link" href="/" style="font-size: 1.4em">Inicio</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('login') }}" style="color: white; font-size: 1.4em">Inicio de sesión</a></li>
                 {{-- <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li> --}}
 
                 @else
-                <li class="nav-item active">
+                <li class="nav-item {{ (request()->is('prospectos/listado/captura')) ? 'active' : '' }}">
                   <a class="nav-link" href="{{route('prospectos.listaCaptura')}}" style="font-size: 1.4em" >Captura
-                    @if (Route::has('captura'))
-                    <span class="sr-only">(current)</span>
-                    @endif
                   </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('prospectos/listado/ver')) ? 'active' : '' }}">
                   <a class="nav-link" href="{{route('prospectos.listado')}}" style="font-size: 1.4em">Listado
-                    @if (Route::has('evaluar'))
-                    <span class="sr-only">(current)</span>
-                    @endif
                   </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ (request()->is('prospectos/listado/evaluar')) ? 'active' : '' }}">
                   <a class="nav-link" href="{{route('prospectos.listaEvaluar')}}" style="font-size: 1.4em">Evaluación
-                    @if (Route::has('evaluar'))
-                    <span class="sr-only">(current)</span>
-                    @endif
                   </a>
                 </li>
                 <li class="nav-item dropdown d-block float-right">
