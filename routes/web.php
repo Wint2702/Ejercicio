@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::middleware(['middleware' => 'auth'])->group(function() {
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('prospectos/listado',  'ProspectoController@index')->name('prospectos.inicio');
@@ -36,4 +37,4 @@ Route::get('prospectos/listado/rechazar/{idProspecto}', 'ProspectoController@rec
 
 Route::get('prospectos/listado/descargarDocs/{idProspecto}', 'ProspectoController@descargarDocs')->name('prospectos.descargarDocs');
 
-
+});
