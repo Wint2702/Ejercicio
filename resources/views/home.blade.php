@@ -4,7 +4,7 @@
 
 @section('js')
 <script src="js/jquery.dataTables.min.js"></script>
-<script src="js/jquery.filer.min.js" integrity="sha256-TFa1VJG6Q3vcWkJc2X8WRekAve7r8iw0EeymrjveyIA=" crossorigin="anonymous"></script>
+<script src="js/jquery.filer.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/dayjs@1.9.4/locale/es.js" crossorigin="anonymous"></script>
 <script src="js/jquery.form.js"></script>

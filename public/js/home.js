@@ -129,10 +129,11 @@ let tablaProspectos = $('#tablaProspectos').DataTable(
         ]
     }
 );
-// $('#documentos').filer(rulesMultiAll);
-$(document).ready(function () {
 
+$(document).ready(function () {
+    
 });
+// $('#documentos').filer(rulesMultiAll);
 
 let prospecto = {
     mode:0,//create = 1, edit 2, read = 3
@@ -165,21 +166,21 @@ $(document).on('click','#createProspecto',function(e) {
 // });
 
 
-// $('#formProspecto').submit(function (e) {
-//     let formData = new FormData($(e.currentTarget)[0]);
-//     e.preventDefault();
-//     $.ajax({
-//         type: "POST",
-//         url: $(this).data('url'),
-//         data: formData,
-//         cache: false,
-//         contentType: false,
-//         processData: false,
-//         success: function (data) {
-//             alert(data.message);
-//         }
-//     });  
-// });
+$('#formProspecto').submit(function (e) {
+    let formData = new FormData($(e.currentTarget)[0]);
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: $(this).data('url'),
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            alert(data.message);
+        }
+    });  
+});
 
 // function preventDefaultfn(e) {
 //     e.preventDefault(); 
