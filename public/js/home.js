@@ -1,4 +1,21 @@
-dayjs.locale("es");
+
+let prospecto = {
+    mode:0,//create = 1, edit 2, read = 3
+    id:null,
+    nombre:null,
+    primer_apellido:null,
+    segundo_apellido:null,
+    calle:null,
+    numero:null,
+    colonia:null,
+    codigo_postal:null,
+    telefono:null,
+    rfc:null,
+    deleteUrl:null,
+    updateUrl:null,
+    getUrl:null
+};
+
 let captions = {
     button: "seleccionar",
     feedback: "seleccione los archivos",
@@ -23,134 +40,85 @@ let rulesMultiAll ={
 };
 
 
-// funcion estandar al enviar un form
-$('form').not('#formFiltrarTareas, #formGenerarReporte, #formListaMetas, #filtroInforme, #formListaTareasDepto').on('submit', function(e) {
-    e.preventDefault();    
-    setSubmit(e);
-});
+$(document).ready(function () {
+    $('.modal').on('hidden.bs.modal', function (e) {
+        console.log('hemlo');   
+        prospecto = {
+            mode:0,//create = 1, edit 2, read = 3
+            id:null,
+            nombre:null,
+            primer_apellido:null,
+            segundo_apellido:null,
+            calle:null,
+            numero:null,
+            colonia:null,
+            codigo_postal:null,
+            telefono:null,
+            rfc:null,
+            deleteUrl:null,
+            updateUrl:null,
+            getUrl:null
+        };
+    
+        $('form input[type=text], input[type=number], input[type=file]').prop('value','');
+        $('#descargaDocumentos, #btnBorrar').hide();
+        $('#tituloModal').text("");
+    $('#formProspecto').attr('action','');
 
-function setSubmit(e) {
-    audioAlert.init();
-    // //pone en read only los campos
-    // $(e.currentTarget).find('input,textarea').not('input[type=submit], input[type=reset], input[type=button]').each((k,v)=>{
-    //     $(v).prop('readonly', true);
-    // });
-    // //desabilita los botones
-    // $(e.currentTarget).find('input[type=submit], input[type=reset], input[type=button]').each((k,v)=>{
-    //     $(v).prop('disabled', true);
-    // });
 
-    if(typeof moneyInputs !== 'undefined') moneyInputs.forEach(element => { element.unformat(); });
-    // ejecuta alguna funcion especificada para antes del formulario
-    if (typeof prevActions == 'function') prevActions(e.currentTarget);
-    let formData = new FormData($(e.currentTarget)[0]);
-    let url = $(e.currentTarget).data('url');
-    saveData(formData, url, e.currentTarget);
-}
+    });
 
+    $(document).on('click','.editProspecto',function(e) {
+        e.preventDefault();
+        prospecto.mode = 2;
+    
+        $.ajax({
+            type: "GET",
+            url: "prospectos/listado/ver/"+$(this).data('id'),
+            success: function (data) {
+                console.log(data);
+            
+                prospecto = data;
+                $('#nombre').val(prospecto.data.nombre);
+                $('#primer_apellido').val(prospecto.data.primer_apellido);
+                $('#segundo_apellido').val(prospecto.data.segundo_apellido?prospecto.data.segundo_apellido:"");
+                $('#telefono').val(prospecto.data.telefono);
+                $('#rfc').val(prospecto.data.rfc);
+                $('#calle').val(prospecto.data.calle);
+                $('#numero').val(prospecto.data.numero);
+                $('#colonia').val(prospecto.data.colonia);
+                $('#codigo_postal').val(prospecto.data.codigo_postal);
 
-function saveData(formData ,url, target) {
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: 'json',
-        success: (data)=> {
-            if(data.message !== undefined) {
-                if(data.button !== undefined && data.link !== undefined) {
-                    notify.success({msj:data.message, button:data.button, link:data.link});
-                } else {
-                    notify.success({msj:data.message});
+                if(prospecto.data.documentosUrl){
+                    $('#descargaDocumentos').show();
+                    $('#descargaDocumentos').attr('href', prospecto.data.documentosUrl);
                 }
-            }
-            if (typeof successActions == 'function') successActions(target,data);
-            audioAlert.success();
-        },
-        error: (error)=> {
-            // notify.danger({msj:error.responseJSON.message,list:error.responseJSON.errors});
-            // audioAlert.error();
-        },
-        statusCode: {
-            401: (error) => {
-                notify.warning({msj:error.responseJSON.message,list:error.responseJSON.errors});
-                audioAlert.info();
-            },
-            409: (error) => {
-                notify.warning({msj:error.responseJSON.message,list:error.responseJSON.errors});
-                audioAlert.info();
-            },
-            409: (error) => {
-                notify.warning({msj:'Ocurrio un error inesperado, por favor recarga la pagina y vuevle a intentarlo, si el error persiste ponte en contacto con el area de sistemas y muestrale la siguiente info: '+error.responseJSON.message,list:error.responseJSON.errors});
-                audioAlert.info();
-            },
-            500: (error) => {
-                notify.danger({msj:error.responseJSON.message,list:error.responseJSON.errors});
-                audioAlert.error();
-            },
-            422: (error) => {
-                notify.danger({msj:error.responseJSON.message,list:error.responseJSON.errors});
-                audioAlert.error();
-            }
-        },
-        complete: ()=> {
-            $(target).find('input,textarea').not('input[type=submit], input[type=reset], input[type=button], input[name="urlDocumento"]').each((k,v)=>{
-                $(v).removeAttr('readonly');
-            });
-            $(target).find('input[type=submit], input[type=reset], input[type=button]').each((k,v)=>{
-                $(v).removeAttr('disabled');
-            });
 
-            if(typeof moneyInputs !== 'undefined') moneyInputs.forEach(element => {element.reformat();});
-            if( $(target).prop('id') == 'formEditarTarea' )$('#fecha').prop('readonly','true');
+                $('#modalForms').modal('show');
+                $('#storeProspecto, #guardarProspecto').removeClass('d-none');
+                $('#tituloModal').text("Editar prospecto");
+                $('#formProspecto').attr('action',prospecto.data.updateUrl);
+                $('#btnBorrar').data('url',prospecto.data.deleteUrl).show();
+            }
+        });
+
+      });
+
+      $('#btnBorrar').on('click', function (e) {
+        if (confirm('Seguro que deseas borrar este prospecto?')){
+            $.ajax({
+                type: "GET",
+                url: $(this).data('url'),
+                success: function (data) {
+                  $('#modalForms').modal('hide');
+                  location.reload();
+                }
+            });
         }
     });
-}
-
-let tablaProspectos = $('#tablaProspectos').DataTable(
-    {
-        serverSide: true,
-        "ajax": {
-            url:$('#tablaProspectos').data('url'),
-            type: 'GET',
-        },
-        "order": [[ 0, 'desc' ]],
-        columns: [
-            {data: "id" },
-            {data: "nombre" , render : function (data,type,row,meta) {
-                return `<button class="btn btn-link editProspecto" data-id="${row.id}">${data}</button>`;
-            }},
-            { data: 'primer_apellido'},
-            { data: 'segundo_apellido',"defaultContent": "<span class='text-muted'>No completado</span>" },
-            { data:'created_at'},
-            { data: 'estatus'}
-        ]
-    }
-);
-
-$(document).ready(function () {
-    
 });
-// $('#documentos').filer(rulesMultiAll);
 
-let prospecto = {
-    mode:0,//create = 1, edit 2, read = 3
-    id:null,
-    nombre:null,
-    primer_apellido:null,
-    segundo_apellido:null,
-    calle:null,
-    numero:null,
-    colonia:null,
-    codigo_postal:null,
-    telefono:null,
-    rfc:null,
-    deleteUrl:null,
-    updateUrl:null,
-    getUrl:null
-};
+
 
 $(document).on('click','#createProspecto',function(e) {
     // console.log(e.currentTarget);
@@ -159,11 +127,9 @@ $(document).on('click','#createProspecto',function(e) {
     $('#storeProspecto, #guardarProspecto').removeClass('d-none');
     $('#tituloModal').text("Nuevo prospecto");
     $('#formProspecto').data('url','prospectos/listado/crear');
-});
+    $('#formProspecto').attr('action','prospectos/listado/crear');
 
-// $('#guardarProspecto').on('click', function (e) {
-//     e.preventDefault();
-// });
+});
 
 
 $('#formProspecto').submit(function (e) {
@@ -182,6 +148,6 @@ $('#formProspecto').submit(function (e) {
     });  
 });
 
-// function preventDefaultfn(e) {
-//     e.preventDefault(); 
-// }
+
+console.log('a');   
+

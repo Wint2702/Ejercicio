@@ -12,9 +12,9 @@
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery.filer@1.3.0/css/jquery.filer.css" integrity="sha256-oadZPpy77zsuXe5kQtdf2P5z52iiJykWgkaxzovUIEo=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/dataTables.bootstrap4.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="css/jquery.filer.css" crossorigin="anonymous">
 @endsection
 
 @section('content')
@@ -29,9 +29,9 @@
             Filtrar por:
             <select name="filtroProspectos" id="filtroProspectos" class="form-control form-control-sm">
                 <option value="">Todos los prospectos</option>
-                <option>Por evalular</option>
-                <option>Cliente</option>
-                <option>Rechazado</option>
+                <option value="Enviado">Enviados</option>
+                <option value="Autorizado">Autorizados</option>
+                <option value="Rechazado">Rechazados</option>
             </select>
         </label>
     </div>
@@ -54,7 +54,7 @@
                         <td>{{$prospecto->nombre}}</td>
                         <td>{{$prospecto->primer_apellido}}</td>
                         <td>{{$prospecto->segundo_apellido or "no completado"}}</td>
-                        <td>{{$prospecto->created_at->formatLocalized('%d/%b/%Y')}}</td>
+                        <td>{{$prospecto->created_at->formatLocalized('%d/%m/%Y')}}</td>
                         <td>{{$prospecto->estatus}}</td>
                     </tr>
                 @endforeach
@@ -75,7 +75,7 @@
                 </button>
             </div>
             <div class="modal-body d-none" id="storeProspecto">
-                <form id="formProspecto" action="{{ route('prospectos.crear' )}}" method="POST">
+                <form id="formProspecto" action="" method="POST">
                     {{ csrf_field() }}
                     <div class="form-row">
                         <div class="col-4 mb-2">
@@ -117,9 +117,10 @@
                         </div>
                         <hr class="col-10">
                         <div class="col-12 mb-4">
-                            <label for="documentos">Subir documentos de prospecto. <span class="text-danger">*</span></label>
+                            <label for="documentos">Subir documentos de prospecto. <span class="text-danger">*</span></label> <br>
                             <small class="text-muted">Formatos admitidos: PDF, DOCX, DOC, ZIP, XLS y XLSX.</small>
                             <input type="file" id="documentos" name="documentos[]" multiple>
+                            <a href="#" id="descargaDocumentos" target="_blank" class="mt-2"  style="display: none"><i class="fas fa-download"></i> Descargar documentos prospecto</a>
                         </div>
                     </div>
                 </form>

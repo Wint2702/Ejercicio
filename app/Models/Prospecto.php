@@ -46,11 +46,11 @@ class Prospecto extends Model {
     public function getEstatusAttribute() {
         $estatus = null;
         if(isset($this->fecha_aprobado)){
-            $estatus = 'Cliente';
+            $estatus = 'Autorizado';
         } elseif(isset($this->fecha_rechazado)){
             $estatus = 'Rechazado';
         }elseif(!isset($this->fecha_aprobado) && !isset($this->fecha_rechazado)){
-            $estatus = 'Pendiente de evaluar';
+            $estatus = 'Enviado';
         }
         return $estatus;
     }
